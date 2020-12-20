@@ -1,16 +1,6 @@
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code-of-conduct.md) [![Build Status](https://travis-ci.org/elliotjreed/:package_name.svg?branch=master)](https://travis-ci.org/elliotjreed/:package_name) [![Coverage Status](https://coveralls.io/repos/github/elliotjreed/:package_name/badge.svg?branch=master)](https://coveralls.io/github/elliotjreed/:package_name?branch=master)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code-of-conduct.md) [![Build Status](https://travis-ci.org/elliotjreed/php-template.svg?branch=master)](https://travis-ci.org/elliotjreed/php-template) [![Coverage Status](https://coveralls.io/repos/github/elliotjreed/php-template/badge.svg?branch=master)](https://coveralls.io/github/elliotjreed/php-template?branch=master)
 
-**This is a template. To use it, clone this repository or select "Use this template" from [github.com/elliotjreed/php-package-template](https://github.com/elliotjreed/php-package-template) and run:**
-
-```bash
-bash ./setup.sh
-```
-
-![Gif image demonstration of the setup process](demo.gif "Demonstration of the setup process")
-
-**The following instructions and information are related to the project after the [setup](setup.sh) script has been run (they will throw errors if run before the [setup](setup.sh) has been run).**
-
-# :package_name
+# php-template
 
 ## Getting Started
 
@@ -80,16 +70,6 @@ Mutation testing (via [Infection](https://infection.github.io/)) can be run by e
 composer mutation
 ```
 
-### Mess detection
-
-Mess detection can look for potential problems such as bugs, suboptimal code, overcomplicated expressions, and unused parameters, method, and properties.
-
-Mess detection (via [PHPMD](https://phpmd.org/)) can be run by executing:
-
-```bash
-composer phpmd
-```
-
 ## Code formatting
 
 A standard for code style can be important when working in teams, as it means that less time is spent by developers processing what they are reading (as everything will be consistent).
@@ -139,10 +119,10 @@ make test
 To run all the tests and report code coverage in Clover XML format (which many CI platforms can read, including Travis CI), add the following to your CI config (eg. [.travis.yml](.travis.yml)):
 
 ```yaml
-  script:
-    - composer travis
-  after_success:
-    - travis_retry php vendor/bin/php-coveralls
+      script:
+        - composer travis
+      after_success:
+        - travis_retry php vendor/bin/php-coveralls
 ```
 
 ## Coding standards
@@ -170,7 +150,6 @@ composer phpcs:fix
   - [PHPUnit](https://phpunit.de/)
   - [Phan](https://github.com/phan/phan)
   - [Psalm](https://psalm.dev/)
-  - [PHPMD](https://phpmd.org/)
   - [Infection](https://infection.github.io/)
   - [PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer)
   - [GNU Make](https://www.gnu.org/software/make/)
