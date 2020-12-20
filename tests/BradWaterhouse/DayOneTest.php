@@ -13,4 +13,9 @@ final class DayOneTest extends TestCase
     {
         $this->assertSame(910539, (new DayOne())->partOne());
     }
+
+    public function testItReturnsThreeNumbersWithSumOf2020(): void
+    {
+        $this->assertSame(116724144, (new DayOne())->partTwo());
+    }
 }
