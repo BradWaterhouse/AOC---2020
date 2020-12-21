@@ -20,12 +20,11 @@ class Day3
         $chunks = $this->formatChucks($this->getFile());
         \array_pop($chunks);
 
-        foreach ($chunks as $chuck) {
-            $this->isTree(\str_split($chuck)[$this->x]);
-            $this->x += 3;
-        }
+        $route = [
+            ['right' => 3, 'down' => 1],
+        ];
 
-        return $this->total;
+        return $this->takeRoutes($route, $chunks);
     }
 
     public function partTwo(): int
@@ -41,6 +40,11 @@ class Day3
         $chunks = $this->formatChucks($this->getFile());
         \array_pop($chunks);
 
+        return $this->takeRoutes($routes, $chunks);
+    }
+
+    private function takeRoutes(array $routes, array $chunks): int
+    {
         $size = \count($chunks) - 1;
 
         foreach ($routes as $key => $route) {
