@@ -1,6 +1,8 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code-of-conduct.md) [![Build Status](https://travis-ci.org/elliotjreed/php-template.svg?branch=master)](https://travis-ci.org/elliotjreed/php-template) [![Coverage Status](https://coveralls.io/repos/github/elliotjreed/php-template/badge.svg?branch=master)](https://coveralls.io/github/elliotjreed/php-template?branch=master)
 
-# php-template
+# Advent Of Code
+
+PHP repository for the 2020 Advent of code challenges.
 
 ## Getting Started
 
