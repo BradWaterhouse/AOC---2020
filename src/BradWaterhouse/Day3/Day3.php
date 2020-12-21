@@ -18,14 +18,43 @@ class Day3
     public function partOne(): int
     {
         $chunks = $this->formatChucks($this->getFile());
-        array_pop($chunks);
+        \array_pop($chunks);
 
-        foreach ($chunks as $key => $chuck) {
-            $this->isTree(str_split($chuck)[$this->x]);
+        foreach ($chunks as $chuck) {
+            $this->isTree(\str_split($chuck)[$this->x]);
             $this->x += 3;
         }
 
         return $this->total;
+    }
+
+    public function partTwo(): int
+    {
+        $routes = [
+            ['right' => 1, 'down' => 1],
+            ['right' => 3, 'down' => 1],
+            ['right' => 5, 'down' => 1],
+            ['right' => 7, 'down' => 1],
+            ['right' => 1, 'down' => 2]
+        ];
+
+        $chunks = $this->formatChucks($this->getFile());
+        \array_pop($chunks);
+
+        $size = \count($chunks) - 1;
+
+        foreach ($routes as $key => $route) {
+            for ($x = 0; $x <= $size; $x += $route['down']) {
+                $this->isTree(\str_split($chunks[$x])[$this->x]);
+
+                $this->x += $route['right'];
+            }
+
+            $routes['totals'][] = $this->total;
+            $this->total = 0;
+        }
+
+        return \array_product($routes['totals']);
     }
 
     private function isTree(string $input): void
