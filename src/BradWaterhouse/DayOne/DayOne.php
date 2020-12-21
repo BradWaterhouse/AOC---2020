@@ -10,7 +10,7 @@ class DayOne
 {
     public function partOne(): int
     {
-        $lines = \array_map('intval', \explode("\n", \file_get_contents('/Users/bradwaterhouse/code/AOC - 2020/src/BradWaterhouse/DayOne/input.txt')));
+        $lines = $this->getFile();
 
         foreach ($lines as $line) {
             $remaining = 2020 - $line;
@@ -25,15 +25,15 @@ class DayOne
 
     public function partTwo(): int
     {
-        $lines = \array_map('intval', \explode("\n", \file_get_contents('/Users/bradwaterhouse/code/AOC - 2020/src/BradWaterhouse/DayOne/input.txt')));
-        array_pop($lines);
+        $lines = $this->getFile();
+        \array_pop($lines);
 
         foreach ($lines as $line) {
             foreach ($lines as $testMatch) {
-                if ($testMatch != $line) {
+                if ($testMatch !== $line) {
                     $couple = $line + $testMatch;
                     $companion = 2020 - $couple;
-                    if (in_array($companion, $lines) && $companion != 0) {
+                    if ($companion !== 0 && \in_array($companion, $lines, true)) {
                         return $line * $testMatch * $companion;
                     }
                 }
@@ -41,5 +41,11 @@ class DayOne
         }
 
         throw new Exception('No numbers add up to 2020');
+    }
+
+
+    private function getFile(): array
+    {
+        return \array_map('intval', \explode("\n", \file_get_contents(__DIR__ . '/input.txt')));
     }
 }
