@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace BradWaterhouse\DayOne;
+namespace BradWaterhouse\Day1;
 
 use Exception;
 
-class DayOne
+class Day1
 {
     public function partOne(): int
     {

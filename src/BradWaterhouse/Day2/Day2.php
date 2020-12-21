@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace BradWaterhouse\DayTwo;
+namespace BradWaterhouse\Day2;
 
-class DayTwo
+class Day2
 {
     public function partOne(): int
     {
