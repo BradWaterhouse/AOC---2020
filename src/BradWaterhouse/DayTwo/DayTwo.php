@@ -14,15 +14,10 @@ class DayTwo
         $total = 0;
 
         foreach ($rows as $row) {
-            $values = \explode(' ', $row);
+            $requirements = $this->formatPartOne(\explode(' ', $row));
+            $letterCount = \substr_count($requirements['password'], $requirements['letter']);
 
-            $requirements = $this->formatRequirements($values[0]);
-            $letter = \str_replace(':', '', $values[1]);
-            $password = $values[2];
-
-            $letterCount = \substr_count($password, $letter);
-
-            if ($letterCount >= $requirements['min'] && $letterCount <= $requirements['max']) {
+            if ($letterCount >= $requirements['frequency']['min'] && $letterCount <= $requirements['frequency']['max']) {
                 $total++;
             }
         }
@@ -30,14 +25,75 @@ class DayTwo
         return $total;
     }
 
-    private function formatRequirements(string $requirements): array
+    public function partTwo(): int
     {
-        $frequencies = \explode('-', $requirements);
+        $rows = $this->getFile();
+        \array_pop($rows);
+
+        $total = 0;
+
+        foreach ($rows as $row) {
+            $requirements = $this->formatPartTwo(\explode(' ', $row));
+            $splitPassword = \str_split($requirements['password']);
+
+            if ($this->passwordIsValid($splitPassword, $requirements)) {
+                $total++;
+            }
+        }
+
+        return $total;
+    }
+
+    private function formatPartOne(array $row): array
+    {
+        $frequencies = \explode('-', $row[0]);
 
         return [
-            'min' => (int) $frequencies[0],
-            'max' => (int) $frequencies[1]
+            'letter' => \str_replace(':', '', $row[1]),
+            'password' => $row[2],
+            'frequency' => [
+                'min' => (int) $frequencies[0],
+                'max' => (int) $frequencies[1]
+            ]
         ];
+    }
+
+    private function formatPartTwo(array $row): array
+    {
+        $frequencies = \explode('-', $row[0]);
+
+        return [
+            'letter' => \str_replace(':', '', $row[1]),
+            'password' => $row[2],
+            'indexes' => [
+                'first' => (int) $frequencies[0] - 1,
+                'second' => (int) $frequencies[1] - 1
+            ]
+
+        ];
+    }
+
+    private function passwordIsValid(array $splitPassword, array $requirements): bool
+    {
+        if ($this->firstIndexIsValid($splitPassword, $requirements) && !$this->secondIndexIsValid($splitPassword, $requirements)) {
+            return true;
+        }
+
+        if (!$this->firstIndexIsValid($splitPassword, $requirements) && $this->secondIndexIsValid($splitPassword, $requirements)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function firstIndexIsValid(array $splitPassword, array $requirements): bool
+    {
+        return $splitPassword[$requirements['indexes']['first']] === $requirements['letter'];
+    }
+
+    private function secondIndexIsValid(array $splitPassword, array $requirements): bool
+    {
+        return $splitPassword[$requirements['indexes']['second']] === $requirements['letter'];
     }
 
     private function getFile(): array
