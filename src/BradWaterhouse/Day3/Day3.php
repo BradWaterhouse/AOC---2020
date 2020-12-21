@@ -18,7 +18,6 @@ class Day3
     public function partOne(): int
     {
         $chunks = $this->formatChucks($this->getFile());
-        \array_pop($chunks);
 
         $route = [
             ['right' => 3, 'down' => 1],
@@ -38,7 +37,6 @@ class Day3
         ];
 
         $chunks = $this->formatChucks($this->getFile());
-        \array_pop($chunks);
 
         return $this->takeRoutes($routes, $chunks);
     }
@@ -86,6 +84,9 @@ class Day3
 
     private function getFile(): array
     {
-        return \explode("\n", \file_get_contents(__DIR__ . '/input.txt'));
+        $file = \explode("\n", \file_get_contents(__DIR__ . '/input.txt'));
+        array_pop($file);
+
+        return $file;
     }
 }

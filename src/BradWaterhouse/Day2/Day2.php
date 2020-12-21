@@ -9,12 +9,10 @@ class Day2
     public function partOne(): int
     {
         $rows = $this->getFile();
-        \array_pop($rows);
-
         $total = 0;
 
         foreach ($rows as $row) {
-            $requirements = $this->formatPartOne(\explode(' ', $row));
+            $requirements = $this->formatMinMax(\explode(' ', $row));
             $letterCount = \substr_count($requirements['password'], $requirements['letter']);
 
             if ($letterCount >= $requirements['frequency']['min'] && $letterCount <= $requirements['frequency']['max']) {
@@ -28,12 +26,10 @@ class Day2
     public function partTwo(): int
     {
         $rows = $this->getFile();
-        \array_pop($rows);
-
         $total = 0;
 
         foreach ($rows as $row) {
-            $requirements = $this->formatPartTwo(\explode(' ', $row));
+            $requirements = $this->formatIndexes(\explode(' ', $row));
             $splitPassword = \str_split($requirements['password']);
 
             if ($this->passwordIsValid($splitPassword, $requirements)) {
@@ -44,7 +40,7 @@ class Day2
         return $total;
     }
 
-    private function formatPartOne(array $row): array
+    private function formatMinMax(array $row): array
     {
         $frequencies = \explode('-', $row[0]);
 
@@ -58,7 +54,7 @@ class Day2
         ];
     }
 
-    private function formatPartTwo(array $row): array
+    private function formatIndexes(array $row): array
     {
         $frequencies = \explode('-', $row[0]);
 
@@ -75,15 +71,7 @@ class Day2
 
     private function passwordIsValid(array $splitPassword, array $requirements): bool
     {
-        if ($this->firstIndexIsValid($splitPassword, $requirements) && !$this->secondIndexIsValid($splitPassword, $requirements)) {
-            return true;
-        }
-
-        if (!$this->firstIndexIsValid($splitPassword, $requirements) && $this->secondIndexIsValid($splitPassword, $requirements)) {
-            return true;
-        }
-
-        return false;
+        return $this->firstIndexIsValid($splitPassword, $requirements) xor $this->secondIndexIsValid($splitPassword, $requirements);
     }
 
     private function firstIndexIsValid(array $splitPassword, array $requirements): bool
@@ -98,6 +86,9 @@ class Day2
 
     private function getFile(): array
     {
-        return \explode("\n", \file_get_contents(__DIR__ . '/input.txt'));
+        $file = \explode("\n", \file_get_contents(__DIR__ . '/input.txt'));
+        array_pop($file);
+
+        return $file;
     }
 }
